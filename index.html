@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Animal Prolog Query</title>
+  <title>Prolog Cars Query</title>
   <script src="https://unpkg.com/tau-prolog"></script>
   <style>
     body {
@@ -15,6 +15,8 @@
       font-size: 16px;
       margin: 10px;
       padding: 10px;
+      width: 90%;
+      max-width: 600px;
     }
     .gif {
       margin-top: 20px;
@@ -23,10 +25,10 @@
   </style>
 </head>
 <body>
-  <h2>Ask Prolog About Animals</h2>
+  <h2>Ask Prolog About Cars</h2>
 
   <textarea id="prolog-input">
-is_mammal(X).
+is_sportscar(X).
   </textarea><br>
   <button onclick="runProlog()">Run</button>
 
@@ -37,23 +39,31 @@ is_mammal(X).
     const session = pl.create();
 
     const knowledge = `
-      animal(lion).
-      animal(elephant).
-      animal(tiger).
-      mammal(lion).
-      big(elephant).
-      predator(tiger).
-      is_mammal(X) :- mammal(X).
-      is_big(X) :- big(X).
-      is_predator(X) :- predator(X).
+      car(ferrari).
+      car(toyota).
+      car(lamborghini).
+      car(volvo).
+      car(bmw).
+      sportscar(ferrari).
+      sportscar(lamborghini).
+      electric(bmw).
+      suv(volvo).
+      reliable(toyota).
+
+      is_sportscar(X) :- sportscar(X).
+      is_electric(X) :- electric(X).
+      is_suv(X) :- suv(X).
+      is_reliable(X) :- reliable(X).
     `;
 
     session.consult(knowledge);
 
     const gifs = {
-      lion: '<img src="https://media.giphy.com/media/NTur7XlVDUdqM/giphy.gif" class="gif">',
-      elephant: '<img src="https://media.giphy.com/media/2v170e71aanfi/giphy.gif" class="gif">',
-      tiger: '<img src="https://media.giphy.com/media/fANhQpcPGr2hO/giphy.gif" class="gif">'
+      ferrari: '<img src="https://media.giphy.com/media/l3vR1jA9PqUEujd0k/giphy.gif" class="gif">',
+      lamborghini: '<img src="https://media.giphy.com/media/3ohhwp0HA4bRszB1Ms/giphy.gif" class="gif">',
+      toyota: '<img src="https://media.giphy.com/media/11uCGK9dqxI8pi/giphy.gif" class="gif">',
+      volvo: '<img src="https://media.giphy.com/media/NTur7XlVDUdqM/giphy.gif" class="gif">',
+      bmw: '<img src="https://media.giphy.com/media/d2Z9QYzA2aidiWn6/giphy.gif" class="gif">'
     };
 
     function runProlog() {
@@ -74,11 +84,11 @@ is_mammal(X).
 
           const match = str.match(/X = (\w+)/);
           if (match) {
-            const animal = match[1];
-            if (gifs[animal]) {
-              gifDiv.innerHTML = gifs[animal];
+            const car = match[1];
+            if (gifs[car]) {
+              gifDiv.innerHTML = gifs[car];
             } else {
-              gifDiv.innerHTML = "No GIF found.";
+              gifDiv.innerHTML = "No image for this car.";
             }
           }
         }
