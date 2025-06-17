@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Animal Prolog Query</title>
+  <script src="https://unpkg.com/tau-prolog"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 700px;
+      margin: 30px auto;
+      text-align: center;
+    }
+    textarea, button {
+      font-size: 16px;
+      margin: 10px;
+      padding: 10px;
+    }
+    .gif {
+      margin-top: 20px;
+      height: 150px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Ask Prolog About Animals</h2>
+
+  <textarea id="prolog-input">
+is_mammal(X).
+  </textarea><br>
+  <button onclick="runProlog()">Run</button>
+
+  <div id="result"></div>
+  <div id="gif-container"></div>
+
+  <script>
+    const session = pl.create();
+
+    const knowledge = `
+      animal(lion).
+      animal(elephant).
+      animal(tiger).
+      mammal(lion).
+      big(elephant).
+      predator(tiger).
+      is_mammal(X) :- mammal(X).
+      is_big(X) :- big(X).
+      is_predator(X) :- predator(X).
+    `;
+
+    session.consult(knowledge);
+
+    const gifs = {
+      lion: '<img src="https://media.giphy.com/media/NTur7XlVDUdqM/giphy.gif" class="gif">',
+      elephant: '<img src="https://media.giphy.com/media/2v170e71aanfi/giphy.gif" class="gif">',
+      tiger: '<img src="https://media.giphy.com/media/fANhQpcPGr2hO/giphy.gif" class="gif">'
+    };
+
+    function runProlog() {
+      const input = document.getElementById("prolog-input").value.trim();
+      const resultDiv = document.getElementById("result");
+      const gifDiv = document.getElementById("gif-container");
+
+      resultDiv.innerHTML = "";
+      gifDiv.innerHTML = "";
+
+      session.query(input);
+      session.answers(answer => {
+        if (answer === false) {
+          resultDiv.innerHTML = "No result.";
+        } else {
+          const str = pl.format_answer(answer);
+          resultDiv.innerHTML = str;
+
+          const match = str.match(/X = (\w+)/);
+          if (match) {
+            const animal = match[1];
+            if (gifs[animal]) {
+              gifDiv.innerHTML = gifs[animal];
+            } else {
+              gifDiv.innerHTML = "No GIF found.";
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
