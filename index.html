@@ -20,7 +20,10 @@
     }
     .gif {
       margin-top: 20px;
-      height: 150px;
+      max-width: 300px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
   </style>
 </head>
@@ -59,11 +62,11 @@ is_sportscar(X).
     session.consult(knowledge);
 
     const gifs = {
-      ferrari: '<img src="https://media.giphy.com/media/l3vR1jA9PqUEujd0k/giphy.gif" class="gif">',
-      lamborghini: '<img src="https://media.giphy.com/media/3ohhwp0HA4bRszB1Ms/giphy.gif" class="gif">',
-      toyota: '<img src="https://media.giphy.com/media/11uCGK9dqxI8pi/giphy.gif" class="gif">',
-      volvo: '<img src="https://media.giphy.com/media/NTur7XlVDUdqM/giphy.gif" class="gif">',
-      bmw: '<img src="https://media.giphy.com/media/d2Z9QYzA2aidiWn6/giphy.gif" class="gif">'
+      ferrari: '<img src="https://media.tenor.com/J5I9iUjqQ6MAAAAd/ferrari-car.gif" class="gif" alt="Ferrari">',
+      lamborghini: '<img src="https://media.tenor.com/fdZkKzx_SkcAAAAd/lamborghini.gif" class="gif" alt="Lamborghini">',
+      toyota: '<img src="https://media.tenor.com/74c_s7_fT8gAAAAd/toyota-gr86-car.gif" class="gif" alt="Toyota">',
+      volvo: '<img src="https://media.tenor.com/2MKpGlVa2n4AAAAd/volvo-car.gif" class="gif" alt="Volvo">',
+      bmw: '<img src="https://media.tenor.com/6UeET0nt70gAAAAd/bmw-car.gif" class="gif" alt="BMW">'
     };
 
     function runProlog() {
